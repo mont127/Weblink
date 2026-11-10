@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client; frame-src https://accounts.google.com/gsi/; connect-src 'self' https: http://127.0.0.1:* http://localhost:*; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com/gsi/style; font-src https://fonts.gstatic.com; img-src 'self' data: https:; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Alkus Web</title>
+<link rel="icon" href="assets/alkus-logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Sora:wght@500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Unbounded:wght@600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="chat.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side" aria-label="Konverzácie">
+    <a class="brand" href="./"><img src="assets/alkus-logo-tmave.svg" alt=""><span>Alkus</span></a>
+    <button class="new" id="new-chat" type="button">+ Nový chat</button>
+    <nav class="chats" id="chats"></nav>
+    <div class="side-foot">
+      <div class="account" id="account" hidden>
+        <span id="account-email"></span>
+        <button type="button" id="sign-out" class="link">Odhlásiť sa</button>
+      </div>
+      <a class="link" href="./#alkuscode">AlkusCode pre terminál</a>
+    </div>
+  </aside>
+  <div class="shade" aria-hidden="true"></div>
+
+  <main class="main">
+    <header class="top">
+      <button type="button" class="menu" id="menu" aria-label="Zobraziť konverzácie">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <span class="title" id="chat-title">Nový chat</span>
+      <span class="pill" id="state">pripája sa</span>
+    </header>
+
+    <div class="scroll" id="scroll">
+      <section class="welcome" id="welcome">
+        <img src="assets/alkus-logo.svg" alt="" class="welcome-logo">
+        <h1>S čím ti môžem pomôcť?</h1>
+        <p>Alkus Web: píš s Alkusom priamo v prehliadači, bez inštalácie.</p>
+        <div class="examples" id="examples"></div>
+      </section>
+      <div class="thread" id="thread" aria-live="polite"></div>
+    </div>
+
+    <div class="gate" id="gate" hidden>
+      <div data-gate="signin">
+        <h2>Prihlás sa a píš s Alkusom</h2>
+        <p>Účty @lyceum.sk majú prístup hneď. Ostatní môžu po prihlásení požiadať o prístup.</p>
+        <div id="gsi" class="gsi"></div>
+      </div>
+      <div data-gate="access" hidden>
+        <h2>Účet <span id="access-email"></span> zatiaľ nemá prístup</h2>
+        <p id="access-state"></p>
+        <form id="access-form">
+          <div id="access-ask">
+            <label for="access-reason">Kto si a na čo chceš Alkusa používať?</label>
+            <textarea id="access-reason" rows="2" maxlength="500"></textarea>
+            <button type="submit" id="access-send" class="primary">Požiadať o prístup</button>
+          </div>
+        </form>
+      </div>
+      <div data-gate="message" hidden>
+        <p id="gate-message"></p>
+      </div>
+    </div>
+
+    <form class="composer" id="composer">
+      <textarea id="input" rows="1" placeholder="Napíš správu…" aria-label="Správa pre Alkusa"></textarea>
+      <button type="submit" id="send" class="send" aria-label="Odoslať">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+      <button type="button" id="stop" class="send stop" aria-label="Zastaviť" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10H7z"/></svg>
+      </button>
+    </form>
+    <p class="fine">Alkus sa môže mýliť. Dôležité veci si over.</p>
+  </main>
+</div>
+<script src="alkus.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>
